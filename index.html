@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>Mapa del tesoro de Daniel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Cinzel',serif;
+color:white;
+text-align:center;
+background:black;
+overflow-x:hidden;
+}
+
+/* DECORACION FONDO */
+
+#decoracion{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:-1;
+}
+
+.objeto{
+position:absolute;
+opacity:0.12;
+width:80px;
+}
+
+/* TITULO */
+
+h1{
+margin-top:30px;
+font-size:42px;
+letter-spacing:3px;
+text-shadow:0 0 10px rgba(255,215,0,0.3);
+}
+
+.subtitle{
+opacity:0.7;
+font-size:18px;
+}
+
+/* MAPA */
+
+.map{
+width:900px;
+height:600px;
+margin:50px auto;
+background:url("imagenes/mapa.png");
+background-size:cover;
+background-position:center;
+position:relative;
+filter:drop-shadow(0 20px 40px rgba(0,0,0,0.8));
+}
+
+/* BOTONES PIRATA */
+
+.island{
+position:absolute;
+padding:10px 22px;
+font-size:17px;
+cursor:pointer;
+color:#f5e6c8;
+background:linear-gradient(45deg,#3b1d0b,#6b2e0e);
+border:2px solid #2b1305;
+border-radius:6px;
+box-shadow:
+0 4px 10px rgba(0,0,0,0.8),
+inset 0 2px 3px rgba(255,255,255,0.1);
+transition:0.3s;
+}
+
+.island:hover{
+transform:scale(1.08);
+background:linear-gradient(45deg,#6b2e0e,#8f3b10);
+box-shadow:0 0 20px rgba(255,180,0,0.4);
+}
+
+.treasure{
+background:linear-gradient(45deg,#c9a400,#ffd700);
+color:black;
+border:2px solid #5a4300;
+box-shadow:
+0 0 20px rgba(255,215,0,0.6),
+inset 0 2px 3px rgba(255,255,255,0.3);
+}
+
+/* BARCO */
+
+.barco{
+position:absolute;
+width:100px;
+transition:1.8s;
+}
+
+/* IMAGENES */
+
+.logo{
+position:absolute;
+top:20px;
+left:320px;
+width:220px;
+}
+
+.luffy{
+position:absolute;
+bottom:20px;
+left:40px;
+width:140px;
+}
+
+/* BURBUJA */
+
+.burbuja{
+position:absolute;
+max-width:220px;
+background:
+url("https://www.transparenttextures.com/patterns/old-map.png"),
+#e8d2a4;
+color:#2b1a0d;
+padding:12px 16px;
+border-radius:8px;
+font-size:14px;
+border:2px solid #5a3a1c;
+box-shadow:
+0 8px 20px rgba(0,0,0,0.6);
+display:none;
+}
+
+.burbuja::after{
+content:"";
+position:absolute;
+bottom:-12px;
+left:30px;
+border-width:12px;
+border-style:solid;
+border-color:#e8d2a4 transparent transparent transparent;
+}
+
+/* DESTELLOS TESORO */
+
+.destello{
+position:absolute;
+width:10px;
+height:10px;
+background:gold;
+border-radius:50%;
+box-shadow:0 0 10px gold,0 0 20px gold;
+animation:brillar 1.5s infinite;
+}
+
+@keyframes brillar{
+
+0%{
+transform:scale(0.5);
+opacity:0;
+}
+
+50%{
+transform:scale(1.5);
+opacity:1;
+}
+
+100%{
+transform:scale(0.5);
+opacity:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="decoracion"></div>
+
+<h1>Mapa del tesoro de Daniel</h1>
+
+<div class="subtitle">
+sigue el viaje hasta encontrar el tesoro
+</div>
+
+<div class="map">
+
+<img src="imagenes/logo.png" class="logo">
+
+<img src="imagenes/luffy.png" class="luffy">
+
+<img src="imagenes/barco.png" id="barco" class="barco">
+
+<div class="island" style="top:150px; left:170px;" onclick="irIsla(1)">Isla 1</div>
+
+<div class="island" style="top:260px; left:420px;" onclick="irIsla(2)">Isla 2</div>
+
+<div class="island" style="top:170px; right:200px;" onclick="irIsla(3)">Isla 3</div>
+
+<div class="island" style="bottom:150px; left:260px;" onclick="irIsla(4)">Isla 4</div>
+
+<div class="island treasure" style="bottom:140px; right:220px;" onclick="irIsla(5)">Tesoro</div>
+
+<div id="burbuja" class="burbuja"></div>
+
+</div>
+
+<script>
+
+/* POSICIONES BARCO */
+
+const posiciones = {
+
+1:{top:160,left:190},
+2:{top:270,left:440},
+3:{top:180,left:640},
+4:{top:360,left:280},
+5:{top:350,left:650}
+
+}
+
+/* MENSAJES */
+
+const textos = {
+
+1:"Hoy empieza una nueva aventura.",
+
+2:"Hay muchas cosas que admiro de ti.",
+
+3:"Dicen que el mayor tesoro del mar no es el One Piece.",
+
+4:"Sino las personas que encontramos en el camino.",
+
+5:"El verdadero tesoro eres tú. Feliz cumpleaños, mi niño."
+
+}
+
+let islaActual=0
+
+function irIsla(n){
+
+if(n!==islaActual+1){
+return
+}
+
+islaActual=n
+
+let barco=document.getElementById("barco")
+
+barco.style.top=posiciones[n].top+"px"
+barco.style.left=posiciones[n].left+"px"
+
+let burbuja=document.getElementById("burbuja")
+
+burbuja.innerText=textos[n]
+
+burbuja.style.display="block"
+
+burbuja.style.top=(posiciones[n].top-70)+"px"
+burbuja.style.left=(posiciones[n].left-50)+"px"
+
+if(n===5){
+
+activarTesoro(posiciones[n].left,posiciones[n].top)
+
+}
+
+}
+
+/* LUCES TESORO */
+
+function activarTesoro(x,y){
+
+for(let i=0;i<15;i++){
+
+let luz=document.createElement("div")
+
+luz.className="destello"
+
+luz.style.left=(x + Math.random()*120 -60)+"px"
+luz.style.top=(y + Math.random()*120 -60)+"px"
+
+document.querySelector(".map").appendChild(luz)
+
+}
+
+}
+
+/* DECORACION FONDO */
+
+const imagenesFondo = [
+"imagenes/estrella.png",
+"imagenes/moneda.png",
+"imagenes/calavera_fondo.png",
+"imagenes/brujula.png"
+];
+
+const contenedor = document.getElementById("decoracion");
+
+for(let i=0;i<25;i++){
+
+let img = document.createElement("img");
+
+img.src = imagenesFondo[Math.floor(Math.random()*imagenesFondo.length)];
+
+img.className = "objeto";
+
+img.style.top = Math.random()*100 + "vh";
+img.style.left = Math.random()*100 + "vw";
+
+img.style.transform = "rotate("+(Math.random()*360)+"deg)";
+
+contenedor.appendChild(img);
+
+}
+
+</script>
+
+</body>
+</html>
