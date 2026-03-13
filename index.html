@@ -98,37 +98,46 @@ drop-shadow(0 0 25px #ffd700);
 
 }
 
-/* BOTONES PIRATA */
+/* BOTONES CORAZON */
 
 .island{
 
 position:absolute;
 
-padding:12px 24px;
+padding:14px 24px;
 
 font-size:17px;
 
 cursor:pointer;
 
-color:#fff3c4;
+color:#4a2a10;
 
-background:linear-gradient(145deg,#2c1204,#4a1d06);
+background:#d8a46d;
 
-border:3px solid #120701;
-
-clip-path:polygon(
-10% 0%,90% 0%,100% 20%,100% 80%,90% 100%,10% 100%,0% 80%,0% 20%
-);
+border:3px solid #8b5a2b;
 
 box-shadow:
 0 4px 12px rgba(0,0,0,0.9),
-0 0 8px rgba(255,215,0,.2);
+inset 0 0 10px rgba(0,0,0,.3);
 
 transition:.2s;
+
+clip-path:polygon(
+50% 100%,
+0% 40%,
+20% 10%,
+40% 20%,
+50% 35%,
+60% 20%,
+80% 10%,
+100% 40%
+);
+
 }
 
 .island:hover{
 transform:scale(1.05);
+background:#e3b37f;
 }
 
 .treasure{
@@ -192,7 +201,7 @@ display:none;
 
 }
 
-/* DESTELLOS ESTRELLA */
+/* DESTELLOS */
 
 .destello{
 
@@ -288,16 +297,12 @@ transform:translateY(0);
 <h1>Mapa del tesoro de Daniel</h1>
 <p class="sub">Sigue el mapa para encontrar el tesoro</p>
 
-<!-- DECORACIONES -->
-
 <img src="imagenes/brujula.png" class="decor" style="top:10%;left:8%">
 <img src="imagenes/estrella.png" class="decor" style="top:40%;right:10%">
 <img src="imagenes/calavera_fondo.png" class="decor" style="bottom:20%;left:12%">
 <img src="imagenes/moneda.png" class="decor" style="bottom:30%;right:15%">
 
 <div class="map">
-
-<!-- CAMINO -->
 
 <svg class="ruta" id="ruta">
 
@@ -314,20 +319,16 @@ T700 520
 </svg>
 
 <img src="imagenes/logo.png" class="logo">
-
 <img src="imagenes/luffy.png" class="luffy">
-
 <img src="imagenes/barco.png" id="barco" class="barco">
 
-<!-- ISLAS -->
+<div class="island" style="top:150px; left:170px;" onclick="irIsla(1)">Shells Town</div>
 
-<div class="island" style="top:150px; left:170px;" onclick="irIsla(1)">Isla 1</div>
+<div class="island" style="top:270px; left:430px;" onclick="irIsla(2)">Orange Town</div>
 
-<div class="island" style="top:270px; left:430px;" onclick="irIsla(2)">Isla 2</div>
+<div class="island" style="top:170px; right:170px;" onclick="irIsla(3)">Syrup Village</div>
 
-<div class="island" style="top:170px; right:170px;" onclick="irIsla(3)">Isla 3</div>
-
-<div class="island" style="top:520px; left:260px;" onclick="irIsla(4)">Isla 4</div>
+<div class="island" style="top:520px; left:260px;" onclick="irIsla(4)">Baratie</div>
 
 <div class="island treasure" style="top:520px; right:200px;" onclick="irIsla(5)">Tesoro</div>
 
@@ -341,18 +342,19 @@ T700 520
 
 <p class="mensajeFinal">
 
-Feliz cumpleaños, capitán.  
+Feliz cumpleaños, capitán.
+
 <br><br>
 
 "Si el mundo fuera un mar infinito, yo elegiría navegar contigo.  
 Dicen que One Piece es el mayor tesoro,  
-pero yo ya encontré el mío:  
+pero yo ya encontré el mío:
 
 tu corazón valiente,  
-tu forma de mirar el mundo.  
+tu forma de mirar el mundo.
 
 Y si algún día el viento nos separa,  
-recuerda esto, capitán:  
+recuerda esto, capitán:
 
 entre todas las islas del mar,  
 mi favorita siempre será donde estés tú."
@@ -376,13 +378,9 @@ const posiciones = {
 const textos = {
 
 1:"Hoy empieza una nueva aventura.",
-
 2:"Hay muchas cosas que admiro de ti.",
-
 3:"Dicen que el mayor tesoro del mar no es el One Piece.",
-
 4:"Sino las personas que encontramos en el camino.",
-
 5:"Y el tesoro final eres tú."
 
 }
