@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
 <title>Mapa del tesoro de Daniel</title>
 
@@ -16,13 +15,39 @@ font-family:'Cinzel',serif;
 background:black;
 color:white;
 text-align:center;
+overflow-x:hidden;
 }
+
+/* TITULO */
 
 h1{
 margin-top:30px;
-font-size:42px;
+font-size:44px;
 letter-spacing:3px;
 }
+
+.sub{
+margin-top:-10px;
+font-size:16px;
+opacity:.7;
+}
+
+/* DECORACIONES FLOTANTES */
+
+.decor{
+position:fixed;
+width:120px;
+opacity:.15;
+pointer-events:none;
+animation:flotar 18s infinite alternate ease-in-out;
+}
+
+@keyframes flotar{
+from{transform:translateY(0px) rotate(0deg)}
+to{transform:translateY(-20px) rotate(10deg)}
+}
+
+/* MAPA */
 
 .map{
 
@@ -66,37 +91,57 @@ stroke:#ffd700;
 
 stroke-width:4;
 
-filter:drop-shadow(0 0 6px gold)
-drop-shadow(0 0 12px gold)
-drop-shadow(0 0 20px gold);
+filter:
+drop-shadow(0 0 6px #ffd700)
+drop-shadow(0 0 15px #ffd700)
+drop-shadow(0 0 25px #ffd700);
 
 }
 
-/* BOTONES */
+/* BOTONES PIRATA */
 
 .island{
 
 position:absolute;
-padding:10px 22px;
+
+padding:12px 24px;
+
 font-size:17px;
 
 cursor:pointer;
 
-color:#f5e6c8;
+color:#fff3c4;
 
-background:linear-gradient(45deg,#3b1d0b,#6b2e0e);
+background:linear-gradient(145deg,#2c1204,#4a1d06);
 
-border:2px solid #2b1305;
+border:3px solid #120701;
 
-border-radius:6px;
+clip-path:polygon(
+10% 0%,90% 0%,100% 20%,100% 80%,90% 100%,10% 100%,0% 80%,0% 20%
+);
 
-box-shadow:0 4px 10px rgba(0,0,0,0.8);
+box-shadow:
+0 4px 12px rgba(0,0,0,0.9),
+0 0 8px rgba(255,215,0,.2);
 
+transition:.2s;
+}
+
+.island:hover{
+transform:scale(1.05);
 }
 
 .treasure{
-background:linear-gradient(45deg,#c9a400,#ffd700);
+
+background:linear-gradient(45deg,#ffe66a,#ffd700,#fff3a0);
+
 color:black;
+
+box-shadow:
+0 0 10px gold,
+0 0 20px gold,
+0 0 35px gold;
+
 }
 
 /* BARCO */
@@ -107,7 +152,7 @@ width:100px;
 transition:2s;
 }
 
-/* IMAGENES */
+/* PERSONAJES */
 
 .logo{
 position:absolute;
@@ -129,7 +174,7 @@ width:120px;
 
 position:absolute;
 
-max-width:230px;
+max-width:250px;
 
 background:#e8d2a4;
 
@@ -147,20 +192,27 @@ display:none;
 
 }
 
-/* DESTELLOS */
+/* DESTELLOS ESTRELLA */
 
 .destello{
 
 position:absolute;
 
-width:10px;
-height:10px;
+width:18px;
+height:18px;
 
 background:gold;
 
-border-radius:50%;
+clip-path:polygon(
+50% 0%,61% 35%,98% 35%,68% 57%,
+79% 91%,50% 70%,21% 91%,32% 57%,
+2% 35%,39% 35%
+);
 
-box-shadow:0 0 10px gold,0 0 20px gold;
+box-shadow:
+0 0 10px gold,
+0 0 20px gold,
+0 0 40px gold;
 
 animation:brillar 1.5s infinite;
 
@@ -169,7 +221,7 @@ animation:brillar 1.5s infinite;
 @keyframes brillar{
 
 0%{transform:scale(.5);opacity:0;}
-50%{transform:scale(1.5);opacity:1;}
+50%{transform:scale(1.3);opacity:1;}
 100%{transform:scale(.5);opacity:0;}
 
 }
@@ -204,12 +256,12 @@ margin-top:20px;
 
 font-size:20px;
 
-max-width:600px;
+max-width:650px;
 
 margin-left:auto;
 margin-right:auto;
 
-line-height:1.6;
+line-height:1.7;
 
 }
 
@@ -234,10 +286,18 @@ transform:translateY(0);
 <body>
 
 <h1>Mapa del tesoro de Daniel</h1>
+<p class="sub">Sigue el mapa para encontrar el tesoro</p>
+
+<!-- DECORACIONES -->
+
+<img src="imagenes/brujula.png" class="decor" style="top:10%;left:8%">
+<img src="imagenes/estrella.png" class="decor" style="top:40%;right:10%">
+<img src="imagenes/calavera_fondo.png" class="decor" style="bottom:20%;left:12%">
+<img src="imagenes/moneda.png" class="decor" style="bottom:30%;right:15%">
 
 <div class="map">
 
-<!-- CAMINO CORRECTO ENTRE ISLAS -->
+<!-- CAMINO -->
 
 <svg class="ruta" id="ruta">
 
@@ -281,7 +341,21 @@ T700 520
 
 <p class="mensajeFinal">
 
-Feliz cumpleaños, capitán. "Si el mundo fuera un mar infinito, yo elegiría navegar contigo. Dicen que one piece es el mayor tesoro, pero yo ya encontré el mío: tu corazón valiente, tu forma de mirar el mundo. Y si algún día el viento nos separa, recuerda esto, capitán: entre todas las islas del mar, mi favorita siempre será donde estés tú".
+Feliz cumpleaños, capitán.  
+<br><br>
+
+"Si el mundo fuera un mar infinito, yo elegiría navegar contigo.  
+Dicen que One Piece es el mayor tesoro,  
+pero yo ya encontré el mío:  
+
+tu corazón valiente,  
+tu forma de mirar el mundo.  
+
+Y si algún día el viento nos separa,  
+recuerda esto, capitán:  
+
+entre todas las islas del mar,  
+mi favorita siempre será donde estés tú."
 
 </p>
 
@@ -309,7 +383,7 @@ const textos = {
 
 4:"Sino las personas que encontramos en el camino.",
 
-5:"El verdadero tesoro eres tú."
+5:"Y el tesoro final eres tú."
 
 }
 
@@ -332,8 +406,8 @@ burbuja.innerText=textos[n]
 
 burbuja.style.display="block"
 
-burbuja.style.top=(posiciones[n].top-70)+"px"
-burbuja.style.left=(posiciones[n].left-50)+"px"
+burbuja.style.top=(posiciones[n].top-80)+"px"
+burbuja.style.left=(posiciones[n].left-60)+"px"
 
 if(n===5){
 
@@ -355,8 +429,8 @@ let luz=document.createElement("div")
 
 luz.className="destello"
 
-luz.style.left=(x + Math.random()*140 -70)+"px"
-luz.style.top=(y + Math.random()*140 -70)+"px"
+luz.style.left=(x + Math.random()*160 -80)+"px"
+luz.style.top=(y + Math.random()*160 -80)+"px"
 
 document.querySelector(".map").appendChild(luz)
 
