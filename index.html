@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
+
 <meta charset="UTF-8">
 <title>Mapa del tesoro de Daniel</title>
 
@@ -12,9 +12,9 @@
 body{
 margin:0;
 font-family:'Cinzel',serif;
+background:black;
 color:white;
 text-align:center;
-background:black;
 overflow-x:hidden;
 }
 
@@ -63,7 +63,7 @@ position:relative;
 filter:drop-shadow(0 20px 40px rgba(0,0,0,0.8));
 }
 
-/* BOTONES PIRATA */
+/* BOTONES */
 
 .island{
 position:absolute;
@@ -74,25 +74,18 @@ color:#f5e6c8;
 background:linear-gradient(45deg,#3b1d0b,#6b2e0e);
 border:2px solid #2b1305;
 border-radius:6px;
-box-shadow:
-0 4px 10px rgba(0,0,0,0.8),
-inset 0 2px 3px rgba(255,255,255,0.1);
+box-shadow:0 4px 10px rgba(0,0,0,0.8);
 transition:0.3s;
 }
 
 .island:hover{
 transform:scale(1.08);
-background:linear-gradient(45deg,#6b2e0e,#8f3b10);
 box-shadow:0 0 20px rgba(255,180,0,0.4);
 }
 
 .treasure{
 background:linear-gradient(45deg,#c9a400,#ffd700);
 color:black;
-border:2px solid #5a4300;
-box-shadow:
-0 0 20px rgba(255,215,0,0.6),
-inset 0 2px 3px rgba(255,255,255,0.3);
 }
 
 /* BARCO */
@@ -124,16 +117,12 @@ width:140px;
 .burbuja{
 position:absolute;
 max-width:220px;
-background:
-url("https://www.transparenttextures.com/patterns/old-map.png"),
-#e8d2a4;
+background:#e8d2a4;
 color:#2b1a0d;
-padding:12px 16px;
+padding:12px;
 border-radius:8px;
 font-size:14px;
 border:2px solid #5a3a1c;
-box-shadow:
-0 8px 20px rgba(0,0,0,0.6);
 display:none;
 }
 
@@ -147,7 +136,7 @@ border-style:solid;
 border-color:#e8d2a4 transparent transparent transparent;
 }
 
-/* DESTELLOS TESORO */
+/* DESTELLOS */
 
 .destello{
 position:absolute;
@@ -178,8 +167,42 @@ opacity:0;
 
 }
 
-</style>
+/* SECCION FINAL */
 
+.final{
+display:none;
+margin-top:40px;
+text-align:center;
+animation:aparecer 1.5s ease;
+}
+
+.fotoFinal{
+width:420px;
+border-radius:12px;
+box-shadow:0 20px 40px rgba(0,0,0,0.7);
+}
+
+.mensajeFinal{
+margin-top:20px;
+font-size:20px;
+max-width:600px;
+margin-left:auto;
+margin-right:auto;
+line-height:1.6;
+}
+
+@keyframes aparecer{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+</style>
 </head>
 
 <body>
@@ -187,15 +210,11 @@ opacity:0;
 <div id="decoracion"></div>
 
 <h1>Mapa del tesoro de Daniel</h1>
-
-<div class="subtitle">
-sigue el viaje hasta encontrar el tesoro
-</div>
+<div class="subtitle">sigue el viaje hasta encontrar el tesoro</div>
 
 <div class="map">
 
 <img src="imagenes/logo.png" class="logo">
-
 <img src="imagenes/luffy.png" class="luffy">
 
 <img src="imagenes/barco.png" id="barco" class="barco">
@@ -211,6 +230,18 @@ sigue el viaje hasta encontrar el tesoro
 <div class="island treasure" style="bottom:140px; right:220px;" onclick="irIsla(5)">Tesoro</div>
 
 <div id="burbuja" class="burbuja"></div>
+
+</div>
+
+<!-- SECCION FINAL -->
+
+<div id="final" class="final">
+
+<img src="imagenes/happy.png" class="fotoFinal">
+
+<p class="mensajeFinal">
+feliz cumpleaños capitán. el verdadero tesoro del viaje eres tú.
+</p>
 
 </div>
 
@@ -240,7 +271,7 @@ const textos = {
 
 4:"Sino las personas que encontramos en el camino.",
 
-5:"El verdadero tesoro eres tú. Feliz cumpleaños, mi niño."
+5:"El verdadero tesoro eres tú."
 
 }
 
@@ -272,11 +303,13 @@ if(n===5){
 
 activarTesoro(posiciones[n].left,posiciones[n].top)
 
-}
+document.getElementById("final").style.display="block"
 
 }
 
-/* LUCES TESORO */
+}
+
+/* DESTELLOS */
 
 function activarTesoro(x,y){
 
