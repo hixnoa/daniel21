@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
@@ -15,72 +16,82 @@ font-family:'Cinzel',serif;
 background:black;
 color:white;
 text-align:center;
-overflow-x:hidden;
 }
-
-/* DECORACION FONDO */
-
-#decoracion{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:-1;
-}
-
-.objeto{
-position:absolute;
-opacity:0.12;
-width:80px;
-}
-
-/* TITULO */
 
 h1{
 margin-top:30px;
 font-size:42px;
 letter-spacing:3px;
-text-shadow:0 0 10px rgba(255,215,0,0.3);
 }
-
-.subtitle{
-opacity:0.7;
-font-size:18px;
-}
-
-/* MAPA */
 
 .map{
-width:900px;
-height:600px;
-margin:50px auto;
-background:url("imagenes/mapa.png");
-background-size:cover;
-background-position:center;
+
 position:relative;
-filter:drop-shadow(0 20px 40px rgba(0,0,0,0.8));
+margin:60px auto;
+
+width:900px;
+height:900px;
+
+background-image:url("imagenes/mapa.png");
+background-size:contain;
+background-repeat:no-repeat;
+background-position:center;
+
+filter:drop-shadow(0 25px 60px rgba(0,0,0,0.9));
+
+}
+
+/* CAMINO */
+
+.ruta{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+}
+
+.ruta path{
+stroke:#2b1305;
+stroke-width:3;
+fill:none;
+stroke-dasharray:10 10;
+transition:1.5s;
+}
+
+.ruta.activa path{
+
+stroke:#ffd700;
+
+stroke-width:4;
+
+filter:drop-shadow(0 0 6px gold)
+drop-shadow(0 0 12px gold)
+drop-shadow(0 0 20px gold);
+
 }
 
 /* BOTONES */
 
 .island{
+
 position:absolute;
 padding:10px 22px;
 font-size:17px;
-cursor:pointer;
-color:#f5e6c8;
-background:linear-gradient(45deg,#3b1d0b,#6b2e0e);
-border:2px solid #2b1305;
-border-radius:6px;
-box-shadow:0 4px 10px rgba(0,0,0,0.8);
-transition:0.3s;
-}
 
-.island:hover{
-transform:scale(1.08);
-box-shadow:0 0 20px rgba(255,180,0,0.4);
+cursor:pointer;
+
+color:#f5e6c8;
+
+background:linear-gradient(45deg,#3b1d0b,#6b2e0e);
+
+border:2px solid #2b1305;
+
+border-radius:6px;
+
+box-shadow:0 4px 10px rgba(0,0,0,0.8);
+
 }
 
 .treasure{
@@ -93,7 +104,7 @@ color:black;
 .barco{
 position:absolute;
 width:100px;
-transition:1.8s;
+transition:2s;
 }
 
 /* IMAGENES */
@@ -101,165 +112,192 @@ transition:1.8s;
 .logo{
 position:absolute;
 top:20px;
-left:320px;
-width:220px;
+left:350px;
+width:200px;
 }
 
 .luffy{
 position:absolute;
-bottom:20px;
-left:40px;
-width:140px;
+bottom:60px;
+left:80px;
+width:120px;
 }
 
 /* BURBUJA */
 
 .burbuja{
-position:absolute;
-max-width:220px;
-background:#e8d2a4;
-color:#2b1a0d;
-padding:12px;
-border-radius:8px;
-font-size:14px;
-border:2px solid #5a3a1c;
-display:none;
-}
 
-.burbuja::after{
-content:"";
 position:absolute;
-bottom:-12px;
-left:30px;
-border-width:12px;
-border-style:solid;
-border-color:#e8d2a4 transparent transparent transparent;
+
+max-width:230px;
+
+background:#e8d2a4;
+
+color:#2b1a0d;
+
+padding:12px;
+
+border-radius:8px;
+
+font-size:14px;
+
+border:2px solid #5a3a1c;
+
+display:none;
+
 }
 
 /* DESTELLOS */
 
 .destello{
+
 position:absolute;
+
 width:10px;
 height:10px;
+
 background:gold;
+
 border-radius:50%;
+
 box-shadow:0 0 10px gold,0 0 20px gold;
+
 animation:brillar 1.5s infinite;
+
 }
 
 @keyframes brillar{
 
-0%{
-transform:scale(0.5);
-opacity:0;
-}
-
-50%{
-transform:scale(1.5);
-opacity:1;
-}
-
-100%{
-transform:scale(0.5);
-opacity:0;
-}
+0%{transform:scale(.5);opacity:0;}
+50%{transform:scale(1.5);opacity:1;}
+100%{transform:scale(.5);opacity:0;}
 
 }
 
-/* SECCION FINAL */
+/* FINAL */
 
 .final{
+
 display:none;
+
 margin-top:40px;
+
 text-align:center;
+
 animation:aparecer 1.5s ease;
+
 }
 
 .fotoFinal{
+
 width:420px;
+
 border-radius:12px;
+
 box-shadow:0 20px 40px rgba(0,0,0,0.7);
+
 }
 
 .mensajeFinal{
+
 margin-top:20px;
+
 font-size:20px;
+
 max-width:600px;
+
 margin-left:auto;
 margin-right:auto;
+
 line-height:1.6;
+
 }
 
 @keyframes aparecer{
+
 from{
 opacity:0;
 transform:translateY(40px);
 }
+
 to{
 opacity:1;
 transform:translateY(0);
 }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div id="decoracion"></div>
-
 <h1>Mapa del tesoro de Daniel</h1>
-<div class="subtitle">sigue el viaje hasta encontrar el tesoro</div>
 
 <div class="map">
 
+<!-- CAMINO CORRECTO ENTRE ISLAS -->
+
+<svg class="ruta" id="ruta">
+
+<path
+d="
+M200 170
+Q350 120 440 270
+T700 180
+Q650 350 300 520
+T700 520
+"
+/>
+
+</svg>
+
 <img src="imagenes/logo.png" class="logo">
+
 <img src="imagenes/luffy.png" class="luffy">
 
 <img src="imagenes/barco.png" id="barco" class="barco">
 
+<!-- ISLAS -->
+
 <div class="island" style="top:150px; left:170px;" onclick="irIsla(1)">Isla 1</div>
 
-<div class="island" style="top:260px; left:420px;" onclick="irIsla(2)">Isla 2</div>
+<div class="island" style="top:270px; left:430px;" onclick="irIsla(2)">Isla 2</div>
 
-<div class="island" style="top:170px; right:200px;" onclick="irIsla(3)">Isla 3</div>
+<div class="island" style="top:170px; right:170px;" onclick="irIsla(3)">Isla 3</div>
 
-<div class="island" style="bottom:150px; left:260px;" onclick="irIsla(4)">Isla 4</div>
+<div class="island" style="top:520px; left:260px;" onclick="irIsla(4)">Isla 4</div>
 
-<div class="island treasure" style="bottom:140px; right:220px;" onclick="irIsla(5)">Tesoro</div>
+<div class="island treasure" style="top:520px; right:200px;" onclick="irIsla(5)">Tesoro</div>
 
 <div id="burbuja" class="burbuja"></div>
 
 </div>
-
-<!-- SECCION FINAL -->
 
 <div id="final" class="final">
 
 <img src="imagenes/happy.png" class="fotoFinal">
 
 <p class="mensajeFinal">
-feliz cumpleaños, capitán. "Si el mundo fuera un mar infinito, yo elegiría navegar contigo. Dicen que one piece es el mayor teroso, pero yo ya encontré el mío: tu corazón valiente, tu forma de mirar el mundo. Y si algún día el viento nos separa, recuerda esto, capitán: entre todas las islas del mar, mi favorita siempre será donde estés tú".
+
+Feliz cumpleaños, capitán. "Si el mundo fuera un mar infinito, yo elegiría navegar contigo. Dicen que one piece es el mayor tesoro, pero yo ya encontré el mío: tu corazón valiente, tu forma de mirar el mundo. Y si algún día el viento nos separa, recuerda esto, capitán: entre todas las islas del mar, mi favorita siempre será donde estés tú".
+
 </p>
 
 </div>
 
 <script>
 
-/* POSICIONES BARCO */
-
 const posiciones = {
 
-1:{top:160,left:190},
-2:{top:270,left:440},
-3:{top:180,left:640},
-4:{top:360,left:280},
-5:{top:350,left:650}
+1:{top:160,left:200},
+2:{top:280,left:440},
+3:{top:180,left:700},
+4:{top:540,left:300},
+5:{top:540,left:700}
 
 }
-
-/* MENSAJES */
 
 const textos = {
 
@@ -279,9 +317,7 @@ let islaActual=0
 
 function irIsla(n){
 
-if(n!==islaActual+1){
-return
-}
+if(n!==islaActual+1) return
 
 islaActual=n
 
@@ -303,56 +339,28 @@ if(n===5){
 
 activarTesoro(posiciones[n].left,posiciones[n].top)
 
+document.getElementById("ruta").classList.add("activa")
+
 document.getElementById("final").style.display="block"
 
 }
 
 }
 
-/* DESTELLOS */
-
 function activarTesoro(x,y){
 
-for(let i=0;i<15;i++){
+for(let i=0;i<18;i++){
 
 let luz=document.createElement("div")
 
 luz.className="destello"
 
-luz.style.left=(x + Math.random()*120 -60)+"px"
-luz.style.top=(y + Math.random()*120 -60)+"px"
+luz.style.left=(x + Math.random()*140 -70)+"px"
+luz.style.top=(y + Math.random()*140 -70)+"px"
 
 document.querySelector(".map").appendChild(luz)
 
 }
-
-}
-
-/* DECORACION FONDO */
-
-const imagenesFondo = [
-"imagenes/estrella.png",
-"imagenes/moneda.png",
-"imagenes/calavera_fondo.png",
-"imagenes/brujula.png"
-];
-
-const contenedor = document.getElementById("decoracion");
-
-for(let i=0;i<25;i++){
-
-let img = document.createElement("img");
-
-img.src = imagenesFondo[Math.floor(Math.random()*imagenesFondo.length)];
-
-img.className = "objeto";
-
-img.style.top = Math.random()*100 + "vh";
-img.style.left = Math.random()*100 + "vw";
-
-img.style.transform = "rotate("+(Math.random()*360)+"deg)";
-
-contenedor.appendChild(img);
 
 }
 
